@@ -1,117 +1,185 @@
 # Unified Field Engine
 
-A real-time computational simulator implementing an ontology-native unified field model.
+A real-time computational simulator for an ontology-native unified field model.
 
 ---
 
 ## Overview
 
-The **Unified Field Engine** is a C-based simulation system that models a structured substrate field:
+The **Unified Field Engine** is a low-level (C-based) simulation system that models a **single structured substrate field** from which multiple physical-like behaviors emerge.
 
-[
+Rather than modeling separate forces (electromagnetism, gravity, quantum fields), this system treats reality as the evolution of a **unified structured field**:
+
+$$
 \Psi = A \cdot e^{i\Theta} \cdot \Phi \cdot \Pi
-]
+$$
 
-This field is not treated as a traditional physical field (like EM or gravity), but as a **generative substrate** from which observable sectors emerge.
+This project serves as:
 
-The system evolves this substrate over time and provides:
-
-* Real-time visualization
-* Structural invariant tracking
-* Experimental sandbox for unified field hypotheses
+* A **computational ontology**
+* A **physics sandbox**
+* A **field dynamics laboratory**
 
 ---
 
-## Core Idea
+## Core Concept
 
-Instead of modeling separate physical forces, this engine models a **single structured field** composed of four fundamental components:
+The field is decomposed into four fundamental components:
 
-| Component     | Meaning                                           |
-| ------------- | ------------------------------------------------- |
-| **A**         | Amplitude (energy / intensity)                    |
-| **Θ (Theta)** | Phase (cyclic structure / time generator)         |
-| **Φ (Phi)**   | Self-similarity (recursive / attractor structure) |
-| **Π (Pi)**    | Discrete structure (prime-based arithmetic field) |
+| Component | Description                                       |
+| --------- | ------------------------------------------------- |
+| (A)       | Amplitude (energy / intensity)                    |
+| (\Theta)  | Phase (cyclic structure, time generator)          |
+| (\Phi)    | Self-similarity (recursive attractor structure)   |
+| (\Pi)     | Discrete structure (prime-based arithmetic field) |
 
-From this decomposition, all observable behavior is hypothesized to emerge.
+The full field is reconstructed as:
+
+$$
+\Psi(x,y) = A(x,y),e^{i\Theta(x,y)},\Phi(x,y),\Pi(x,y)
+$$
+
+---
+
+## Discrete Arithmetic Field
+
+The discrete component is built using prime valuation:
+
+$$
+\Pi = \exp\left(\sum_{p} \nu_p \log p \right)
+$$
+
+Where:
+
+* (p) = prime numbers
+* (\nu_p) = local valuation fields
+
+This introduces **arithmetic structure directly into the field**.
 
 ---
 
 ## Architecture
 
-### Data Model
+### Data Representation
 
-Each simulation cell stores:
+Each grid cell contains:
 
 ```txt
 A[x,y]        amplitude
 Theta[x,y]    phase
 Phi[x,y]      recursive structure
 nu[p][x,y]    prime valuation channels
-Pi[x,y]       multiplicative prime field
-Psi[x,y]      reconstructed complex field
+Pi[x,y]       multiplicative field
+Psi[x,y]      complex reconstructed field
 ```
-
-Where:
-
-[
-\Pi = \exp\left(\sum_p \nu_p \log p \right)
-]
 
 ---
 
-### Simulation Pipeline
+### Simulation Loop
 
-Each frame:
+Each iteration performs:
 
-1. Reconstruct field:
-   [
+1. Field reconstruction:
+   $$
    \Psi = A \cdot e^{i\Theta} \cdot \Phi \cdot \Pi
-   ]
+   $$
 
-2. Compute structural kernels:
+2. Kernel evaluation:
 
    * Phase curvature
-   * Φ attractor dynamics
+   * Phi attractor force
    * Prime valuation smoothing
    * Counter-rotation proxy
 
-3. Update fields via finite-difference evolution
+3. Field updates (finite differences)
 
-4. Compute invariants:
-
-   * Energy
-   * Phase structure
-   * Self-similarity deviation
-   * Prime structure
-   * Counter-rotation
-   * Entropy
+4. Invariant computation
 
 ---
 
-## Features
+## Structural Invariants
 
-### Real-Time Renderer (raylib)
+The engine tracks key structural quantities:
 
-* Live evolving field visualization
-* Multiple modes:
+### Energy
 
-  * `1` Density |Ψ|²
-  * `2` Phase Θ
-  * `3` Φ deviation
-* Controls:
+$$
+E[\Psi]
+$$
 
-  * `SPACE` pause
-  * `R` reset
-* Displays live invariants
+### Phase Structure
+
+$$
+S_\Theta = \sum |\nabla \Theta|^2
+$$
+
+### Self-Similarity
+
+$$
+S_\Phi = \sum (\Phi - \varphi)^2
+$$
+
+Where:
+
+$$
+\varphi = \frac{1 + \sqrt{5}}{2}
+$$
 
 ---
 
-### Offline Analysis
+### Prime Structure
 
-* CSV snapshot export
-* Python visualization tools
-* Animation support
+$$
+S_p = \sum_p \sum |\nabla \nu_p|^2
+$$
+
+---
+
+### Counter-Rotation
+
+$$
+S_{\pm}
+$$
+
+Measures local rotational cancellation and shear structure.
+
+---
+
+### Entropy
+
+$$
+H[\Psi] = -\sum \rho_\Psi \log \rho_\Psi
+$$
+
+Where:
+
+$$
+\rho_\Psi = \frac{|\Psi|^2}{\sum |\Psi|^2}
+$$
+
+---
+
+## Real-Time Renderer
+
+Built using **raylib**, the engine provides live visualization.
+
+### Modes
+
+| Key | Mode             |      |      |
+| --- | ---------------- | ---- | ---- |
+| `1` | Density (        | \Psi | ^2 ) |
+| `2` | Phase ( \Theta ) |      |      |
+| `3` | Phi deviation    |      |      |
+
+---
+
+### Controls
+
+```txt
+SPACE   pause/resume
+R       reset simulation
+1/2/3   switch visualization mode
+```
 
 ---
 
@@ -122,6 +190,8 @@ Each frame:
 * GCC (C11)
 * raylib
 * Linux (X11 libraries)
+
+---
 
 ### Build
 
@@ -134,11 +204,13 @@ make
 
 ## Run
 
-### Real-time renderer
+### Real-time simulation
 
 ```bash
 ./field_live
 ```
+
+---
 
 ### Offline simulation
 
@@ -148,15 +220,15 @@ make
 
 ---
 
-## Visualization (Python)
+## Python Visualization
 
-Install dependencies:
+Install:
 
 ```bash
 pip install numpy pandas matplotlib
 ```
 
-View a snapshot:
+Run:
 
 ```bash
 python3 tools/visualize_snapshot.py output/step_100_fields.csv
@@ -164,72 +236,84 @@ python3 tools/visualize_snapshot.py output/step_100_fields.csv
 
 ---
 
-## What You're Observing
+## What You Are Observing
 
-This engine is not just visualizing data — it is exploring hypotheses.
+This system is not just visual—it is **experimental**.
 
-### Key Phenomena
+### Phase (Θ)
 
-#### Phase Structure (Θ)
+* Reveals vortices
+* Encodes cyclic structure
+* Acts as a time-like variable
 
-* Reveals vortices and winding numbers
-* Encodes time-like behavior
+---
 
-#### Counter-Rotation
+### Counter-Rotation
 
-* Opposing rotations cancel globally but preserve local structure
-* Candidate mechanism for quantum-like behavior
+* Opposing rotations cancel globally
+* Local structure remains
+* Possible analog to quantum behavior
 
-#### Φ Attractor
+---
 
-* System tends toward golden ratio equilibrium
-* Models recursive stability
+### Φ Field
 
-#### Prime Structure (Π)
+* Attractor toward golden ratio
+* Encodes recursive structure
+* Stability mechanism
 
-* Introduces discrete arithmetic influence
-* Potential link to quantization
+---
 
-#### Entropy vs Structure
+### Prime Field (Π)
 
-* Tests whether order persists under entropy growth
+* Introduces discrete structure
+* May relate to quantization
+* Links arithmetic and dynamics
+
+---
+
+### Entropy vs Structure
+
+Tests whether:
+
+> Structure can persist under entropy increase
 
 ---
 
 ## Current Limitations
 
-* Simplified kernels (toy model)
-* No explicit physical unit calibration
-* Counter-rotation is approximate
-* No spectral decomposition yet
-* CPU-only implementation
+* Simplified kernels (not derived from action principle)
+* Approximate counter-rotation measure
+* No explicit unit calibration
+* CPU-only
+* 2D only
 
 ---
 
 ## Future Directions
 
-### 1. Physics Derivation
+### 1. Physics Extraction
 
-* Extract electromagnetic fields from ∇Θ
-* Recover Schrödinger-like behavior
-* Test geometric coupling → gravity analog
+* Derive EM fields from ( \nabla \Theta )
+* Recover Schrödinger-like equations
+* Explore curvature → gravity analog
 
 ---
 
-### 2. Mathematical Refinement
+### 2. Mathematical Formalization
 
-* Replace heuristic kernels with variational formulation
 * Define full action functional
-* Formalize symmetry group invariants
+* Replace heuristic kernels with variational dynamics
+* Formal symmetry group analysis
 
 ---
 
-### 3. Visualization Upgrades
+### 3. Visualization
 
 * Vector field rendering
-* Flow lines / streamlines
+* Flow lines
 * Phase wheel overlays
-* Multi-channel composite rendering
+* Multi-channel compositing
 
 ---
 
@@ -237,14 +321,14 @@ This engine is not just visualizing data — it is exploring hypotheses.
 
 * OpenMP parallelization
 * GPU acceleration (CUDA / OpenCL)
-* Adaptive timestep integration
+* Adaptive timestep solvers
 
 ---
 
-### 5. Simulation Extensions
+### 5. Simulation Expansion
 
-* 3D field support
-* Non-periodic boundary conditions
+* 3D fields
+* Boundary conditions (non-periodic)
 * Multi-scale coupling
 * External perturbations
 
@@ -252,51 +336,54 @@ This engine is not just visualizing data — it is exploring hypotheses.
 
 ### 6. Experimental Program
 
-* Measure stability of counter-rotation structures
-* Detect persistent invariants under perturbation
-* Study emergent pattern formation
-* Analyze entropy vs coherence tradeoffs
+* Stability of counter-rotating structures
+* Emergence of persistent patterns
+* Entropy vs coherence tradeoffs
+* Phase-driven structure formation
 
 ---
 
 ## Philosophical Position
 
-This project treats physics as **emergent from structured fields**, not fundamental forces.
+This project explores the idea that:
 
-It is:
+> Reality is not built from forces, but from structured field states.
 
-* Not a proof
-* Not a final theory
+It treats:
 
-It is a **computational laboratory** for exploring whether:
-
-> Structured phase, recursion, and discreteness can generate the phenomena we call reality.
-
----
-
-## Project Status
-
-* Core engine: complete
-* Real-time rendering: functional
-* Visualization: working
-* Experimental platform: active
+* Phase as fundamental
+* Recursion as stabilizing
+* Arithmetic as structural
+* Geometry as emergent
 
 ---
 
-## Contributing
+## Status
 
-Future contributions may include:
-
-* Kernel improvements
-* Visualization enhancements
-* GPU backend
-* Mathematical formalization
-* Experimental validation tools
+| Component             | Status   |
+| --------------------- | -------- |
+| Core engine           | Complete |
+| Real-time rendering   | Working  |
+| Visualization         | Working  |
+| Experimental platform | Active   |
 
 ---
 
 ## Final Note
 
-You are not just running a simulation.
+This is not a finished theory.
 
-You are exploring a **hypothesis about the structure of reality** — one frame at a time.
+It is a **tool for discovering one**.
+
+Every frame is a hypothesis.
+
+Every pattern is a clue.
+
+---
+
+## License
+
+This project is licensed under the Apache License 2.0.
+
+See the LICENSE file for details.
+
